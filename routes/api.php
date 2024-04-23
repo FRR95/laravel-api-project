@@ -41,3 +41,5 @@ Route::delete('/roles/{id}', function ($id) {
 
 Route::post('/messages', [MessageController::class, 'createMessage']);
 Route::get('/messages', [MessageController::class, 'getAllMessages']);
+Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
+Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);

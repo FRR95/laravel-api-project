@@ -63,4 +63,44 @@ class MessageController extends Controller
         }
 
     }
+
+    public function updateMessageById(Request $request, $id)
+    {
+        try {
+            $messageId = $id;
+
+            $messageText = $request->input('text');
+     
+
+            $message = Message::find($messageId);
+
+            // validar que existe la tarea
+
+            if( $messageText ){
+                $message->text = $messageText;
+            }
+
+         
+
+            $message->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Message updated successfully",
+                    "data" => $message   
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Message cant be updated",
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
