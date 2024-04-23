@@ -50,7 +50,49 @@ class RoomController extends Controller
                 [
                     'success' => true,
                     'message' => 'Room succesfully created!',
-                    'data'=> $newRoom
+                    'data' => $newRoom
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'CANNOT CALL ALL ROOMS',
+                    'data' => $th->getMessage()()
+                ],
+                500
+            );
+        }
+    }
+
+    public function updateRoom(Request $request, $id)
+    {
+        try {
+
+            $updatedRoom = Room::find($id);
+
+            $RoomName = $request->name;
+            $RoomDescription = $request->description;
+            $RoomGameId = $request->game_id;
+
+            if ($RoomName) {
+                $updatedRoom->name = $RoomName;
+            }
+            if ($RoomDescription) {
+                $updatedRoom->description = $RoomDescription;
+            }
+            if ($RoomGameId) {
+                $updatedRoom->game_id = $RoomGameId;
+            }
+
+            $updatedRoom->save();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Room succesfully updated!',
+                    'data' => $updatedRoom
                 ],
                 200
             );

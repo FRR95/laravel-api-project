@@ -41,5 +41,5 @@ Route::delete('/roles/{id}', function ($id) {
 
 Route::get('/rooms',[RoomController::class, 'getAllRooms']);
 Route::post('/rooms',[RoomController::class, 'createNewRoom']);
-Route::put('/rooms',[RoomController::class]);
-Route::delete('/rooms',[RoomController::class]);
+Route::put('/rooms/{id}',[RoomController::class, 'updateRoom']);
+Route::delete('/rooms/{id}',[RoomController::class]);
