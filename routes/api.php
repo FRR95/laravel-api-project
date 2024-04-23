@@ -39,5 +39,5 @@ Route::delete('/roles/{id}', function ($id) {
 
 //CRUD MESSAGES
 
-
+Route::post('/messages', [MessageController::class, 'createMessage']);
 Route::get('/messages', [MessageController::class, 'getAllMessages']);

@@ -31,4 +31,36 @@ class MessageController extends Controller
             );
         }
     }
+
+    public function createMessage(Request $request)
+    {
+        try {
+            $message = new Message;
+            $message->text = $request->input('text');
+            $message->user_id = $request->input('user_id');
+            $message->room_id = $request->input('room_id');
+
+
+            $message->save();
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Message created successfully",
+                    "data" => $message      
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Message cant be created",
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+
+    }
 }
