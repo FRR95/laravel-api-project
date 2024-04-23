@@ -107,4 +107,39 @@ class RoomController extends Controller
             );
         }
     }
+
+    public function deleteRoom($id)
+    {
+        try {
+
+            // $deletedRoom = Room::destroy($id);
+            $deletedRoom = Room::find($id);
+
+            if (!$deletedRoom) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Room doesn't exist!",
+                    ]
+                );
+            }
+
+            $deletedRoom->delete();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Room succesfully deleted!'
+                ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'CANNOT DELETE ROOM',
+                    'data' => $th->getMessage()
+                ]
+            );
+        }
+    }
 }
