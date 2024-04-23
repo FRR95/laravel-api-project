@@ -40,6 +40,6 @@ Route::delete('/roles/{id}', function ($id) {
 // ROOMS ENDPOINTS
 
 Route::get('/rooms',[RoomController::class, 'getAllRooms']);
-Route::post('/rooms',[RoomController::class]);
+Route::post('/rooms',[RoomController::class, 'createNewRoom']);
 Route::put('/rooms',[RoomController::class]);
 Route::delete('/rooms',[RoomController::class]);
