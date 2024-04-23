@@ -103,4 +103,30 @@ class MessageController extends Controller
             );
         }
     }
+
+
+    public function deleteMessageById($id)
+    {
+        try {
+            $messageDeleted = Message::destroy($id);
+
+            return response()->json(
+                [
+                    "success" => true,
+                    "message" => "Message deleted successfully",
+                    "data" => $messageDeleted      
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    "success" => false,
+                    "message" => "Message cant be deleted",
+                    "error" => $th->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }
