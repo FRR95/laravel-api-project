@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserRoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,8 @@ Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById']);
 Route::get('/games', [GameController::class, 'getAllGames']); 
 Route::post('/games', [GameController::class, 'createGame']); 
 Route::put('/games/{id}', [GameController::class, 'updateGameById']); 
-Route::delete('/games/{id}', [GameController::class, 'deleteGameById']); 
+Route::delete('/games/{id}', [GameController::class, 'deleteGameById']);
+//Users_rooms
+Route::get('/userroom', [UserRoomController::class, 'getAllUsersRooms']); 
+Route::post('/userroom', [UserRoomController::class, 'createUserRoom']);
+Route::delete('/userroom/{id}', [UserRoomController::class, 'deleteUserRoomById']);
