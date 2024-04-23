@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,16 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () {
     return "GET ALL ROLES";
 });
-
-Route::get('/roles', function () {
-    return "GET ALL ROLES";
-});
-Route::post('/roles', function () {
-    return "CREATE ALL ROLES";
-});
-Route::put('/roles/{id}', function ($id) {
-    return "Update role".$id;
-});
-Route::delete('/roles/{id}', function ($id) {
-    return "Delete role".$id;
-});
+//Roles
+Route::get('/roles', [RoleController::class, 'getAllRoles']); 
+Route::post('/roles', [RoleController::class, 'createRole']); 
+Route::put('/roles/{id}', [RoleController::class, 'updateRoleById']); 
+Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById']); 
+//Games
+Route::get('/games', [GameController::class, 'getAllGames']); 
+Route::post('/games', [GameController::class, 'createGame']); 
+Route::put('/games/{id}', [GameController::class, 'updateGameById']); 
+Route::delete('/games/{id}', [GameController::class, 'deleteGameById']); 
