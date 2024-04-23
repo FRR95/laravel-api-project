@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,9 @@ Route::put('/roles/{id}', function ($id) {
 Route::delete('/roles/{id}', function ($id) {
     return "Delete role".$id;
 });
+
+
+//CRUD MESSAGES
+
+
+Route::get('/messages', [MessageController::class, 'getAllMessages']);
