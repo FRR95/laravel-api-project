@@ -1,5 +1,5 @@
 ### Laravel Backend web LFG 
-
+![BD](public/images/banner.webp)
 
 
 ### Index 📚
@@ -7,7 +7,7 @@
 <details>
   <summary> Content 📝</summary>
   <ol>
-    <li><a href="#about-the-project">About the project</a></li>
+    <li><a href="#about-the-project">About the project </a></li>
     <li><a href="#local-installation">Local installation</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#database-diagram">Database Design</a></li>
@@ -60,7 +60,7 @@ Technologies used:
 ### Endpoints 📍
 #### Login:
 localhost:8000/api/register
-POST
+__POST__
 {
     "name": "",
     "email": "",
@@ -70,7 +70,7 @@ POST
 Register:
 localhost:8000/api/login
 
-POST
+__POST__
 {
     "email": "",
     "password": "",
@@ -78,27 +78,29 @@ POST
 
 
 ### Future features 🛠️
-- Events and tournaments
-- Achievement System
+
+ ✅Events and tournaments
+ ✅Achievement System
 
 
 
 ### Authors 🌱
-Javi:
+Javi =>
+
 <a href="https://github.com/Javi-Gallego" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Jesus:
+Jesus =>
 
 <a href="https://github.com/JesusMatinezClavel" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Fran:
+Fran =>
 
 <a href="https://github.com/FRR95" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Paula:
+Paula =>
 
 <a href="https://github.com/almela09" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
