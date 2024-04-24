@@ -1,4 +1,4 @@
-### Laravel Backend web LFG 
+### Laravel Backend web LFG  🎮 🕹️
 ![BD](public/images/banner.webp)
 
 
@@ -84,6 +84,55 @@ Technologies used:
                 "password": "1234"
             }
         ```
+- Games
+    - GET: get all games
+    http://localhost:8000/api/games
+
+    - POST: create game
+    http://localhost:8000/api/games
+
+    - PUT: update game by Id
+    http://localhost:8000/api/games/{id}
+
+    - DELETE: delete game by Id
+    http://localhost:8000/api/games/{id}
+
+- Rooms
+    - GET: get all rooms
+    http://localhost:8000/api/rooms 
+
+    - POST: createe new room
+    http://localhost:8000/api/rooms 
+
+    - PUT: update room
+    http://localhost:8000/api/rooms/{id}
+
+    - DELETE: delete room
+    http://localhost:8000/api/rooms/{id}
+
+- User Rooms
+    - GET: get all users rooms
+    http://localhost:8000/api/userroom/{id}
+
+    - POST: create user room
+    http://localhost:8000/api/userroom
+
+    - DELETE: delete user room by Id
+    http://localhost:8000/api/userroom/{id}
+
+- Messages
+   - POST: create message
+    http://localhost:8000/api/message
+
+  - GET: get all messages from room by id
+    http://localhost:8000/api/messages/room/{id}
+
+  - PUT: update message by Id
+    http://localhost:8000/api/messages/{id}
+ 
+  - DELETE: delete message by Id
+    http://localhost:8000/api/messages/{id}
+ 
 
 </details>
 
@@ -95,22 +144,22 @@ Technologies used:
 
 
 ### Authors 
-Javi =>
+Javi 😼
 
 <a href="https://github.com/Javi-Gallego" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Jesus =>
+Jesus 😸
 
 <a href="https://github.com/JesusMatinezClavel" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Fran =>
+Fran 🙀
 
 <a href="https://github.com/FRR95" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 <p>
-Paula =>
+Paula 😿
 
 <a href="https://github.com/almela09" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
