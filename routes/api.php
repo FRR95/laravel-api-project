@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+//CRUD MESSAGES
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+Route::post('/messages', [MessageController::class, 'createMessage']);
+Route::get('/messages/room/{id}', [MessageController::class, 'getAllMessagesFromRoomById']);
+Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
+Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);
 });
 
 Route::get('/', function () {
@@ -30,10 +39,10 @@ Route::post('/roles', function () {
     return "CREATE ALL ROLES";
 });
 Route::put('/roles/{id}', function ($id) {
-    return "Update role".$id;
+    return "Update role" . $id;
 });
 Route::delete('/roles/{id}', function ($id) {
-    return "Delete role".$id;
+    return "Delete role" . $id;
 });
 
 
@@ -45,3 +54,13 @@ Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanct
 
 
 
+// CRUD ROOMS
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/rooms', [RoomController::class, 'getAllRooms']);
+    Route::post('/rooms', [RoomController::class, 'createNewRoom']);
+    Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
+    Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+});

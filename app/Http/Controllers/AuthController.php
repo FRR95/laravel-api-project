@@ -76,7 +76,7 @@ class AuthController extends Controller
                         "success" => false,
                         "message" => "Validation failed",
                         "error" => $validator->errors()
-                    ]
+                    ],400
                 );
             }
 
@@ -128,9 +128,10 @@ class AuthController extends Controller
             return response()->json(
                 [
                     "success" => false,
-                    "message" => "user cant be logged",
-                    // "error" => $th->getMessage()
-                ]
+                    "message" => "User cant be logged",
+                    "error" => $th->getMessage()
+                ],
+                500
             );
         }
     }
