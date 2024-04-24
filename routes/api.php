@@ -27,3 +27,29 @@ Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
 Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);
 });
 
+Route::get('/', function () {
+    return "GET ALL ROLES";
+});
+
+Route::get('/roles', function () {
+    return "GET ALL ROLES";
+});
+Route::post('/roles', function () {
+    return "CREATE ALL ROLES";
+});
+Route::put('/roles/{id}', function ($id) {
+    return "Update role".$id;
+});
+Route::delete('/roles/{id}', function ($id) {
+    return "Delete role".$id;
+});
+
+
+//Routes Auth
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
+
+
+

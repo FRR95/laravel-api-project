@@ -3,128 +3,117 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Stmt\TryCatch;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
         try {
+            // Recuperar datos
             $name = $request->input('name');
-            $role_id = $request->input('role_id');
             $password = $request->input('password');
             $email = $request->input('email');
 
-            //Validar
-
-            $validator = Validator::make($request->all(), [
+            // Validar
+            $validator = Validator::make($request->all(), [ //validator facades
                 'name' => 'required',
-                'password' => 'required|min:4|max:10',
-                'email' => 'required|unique:users'
+                'password' => 'required|string|min:4|max:10', 
+                'email' => 'required|string|email|unique:users' 
             ]);
 
             if ($validator->fails()) {
-                return response()->json(
-                    [
-                        "success" => false,
-                        "message" => "Error during register",
-                        "error" => $validator
-                    ],
-                    400
-                );
+                return response()->json([
+                    "success" => false,
+                    "message" => "Validation failed",
+                    "errors" => $validator->errors()
+                ]); 
             }
 
+            // Tratar info
             $hashPassword = bcrypt($password);
 
-            $newUser = new User;
+            // Guardar en db
+            $newUser = new User();
             $newUser->name = $name;
-            $newUser->password = $hashPassword;
             $newUser->email = $email;
-            $newUser->role_id = $role_id;
-
+            $newUser->password = $hashPassword;
             $newUser->save();
 
-            return response()->json(
-                [
-                    "success" => true,
-                    "message" => "User registered successfully",
-                    "data" => $newUser
-                ],
-                200
-            );
+            // Devolver respuesta
+            return response()->json([
+                'success' => true,
+                'message' => 'User registered',
+                'data' => $newUser
+            ]); 
         } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "User cant be registered",
-                    "error" => $th->getMessage()
-                ],
-                500
-            );
+            Log::error($th->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'User cannot be registered'
+            ]); 
         }
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         try {
-
+            // recuperar la request
             $email = $request->input('email');
             $password = $request->input('password');
 
-
+               // Validarla
             $validator = Validator::make($request->all(), [
-                'email' => 'required',
-                'password' => 'required'
-
+                'password' => 'required',
+                'email' => 'required'
             ]);
-
+     
             if ($validator->fails()) {
                 return response()->json(
                     [
                         "success" => false,
-                        "message" => "Error during login",
-                        "error" => $validator
-                    ],
-                    400
+                        "message" => "Validation failed",
+                        "error" => $validator->errors()
+                    ],400
                 );
             }
 
+            // Comprobar si el usuario existe
             $user = User::query()
                 ->where('email', $email)
                 ->first();
 
-            if (!$user) {
+            if(!$user) {
                 return response()->json(
                     [
                         "success" => false,
                         "message" => "Email or password not valid",
-                        // "error" => $th->getMessage()
+                        
                     ],
                     400
                 );
             }
 
+            // Validar password con el usuario
             $checkPasswordUser = Hash::check($password, $user->password);
-
-            if (!$checkPasswordUser) {
+            
+            if(!$checkPasswordUser) {
                 return response()->json(
                     [
                         "success" => false,
                         "message" => "Email or password not valid 2",
-                        // "error" => $th->getMessage()
+                        
                     ],
                     400
                 );
             }
-            $token = $user->createToken('api-token')->plainTextToken;
+            
+            // Crear token
+            $token =$user->createToken('api-token')->plainTextToken;
 
-
+            // Responder con el token
             return response()->json(
                 [
                     "success" => true,
@@ -134,6 +123,7 @@ class AuthController extends Controller
                 200
             );
         } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
             return response()->json(
                 [
