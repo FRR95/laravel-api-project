@@ -30,16 +30,20 @@ Route::post('/roles', function () {
     return "CREATE ALL ROLES";
 });
 Route::put('/roles/{id}', function ($id) {
-    return "Update role".$id;
+    return "Update role" . $id;
 });
 Route::delete('/roles/{id}', function ($id) {
-    return "Delete role".$id;
+    return "Delete role" . $id;
 });
 
 
 // CRUD ROOMS
 
-Route::get('/rooms',[RoomController::class, 'getAllRooms']);
-Route::post('/rooms',[RoomController::class, 'createNewRoom']);
-Route::put('/rooms/{id}',[RoomController::class, 'updateRoom']);
-Route::delete('/rooms/{id}',[RoomController::class, 'deleteRoom']);
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/rooms', [RoomController::class, 'getAllRooms']);
+    Route::post('/rooms', [RoomController::class, 'createNewRoom']);
+    Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
+    Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+});
