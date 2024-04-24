@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,16 +37,9 @@ Route::delete('/roles/{id}', function ($id) {
 });
 
 
-// ROOMS ENDPOINTS
+// CRUD ROOMS
 
 Route::get('/rooms',[RoomController::class, 'getAllRooms']);
 Route::post('/rooms',[RoomController::class, 'createNewRoom']);
 Route::put('/rooms/{id}',[RoomController::class, 'updateRoom']);
 Route::delete('/rooms/{id}',[RoomController::class, 'deleteRoom']);
-
-//CRUD MESSAGES
-
-Route::post('/messages', [MessageController::class, 'createMessage']);
-Route::get('/messages', [MessageController::class, 'getAllMessages']);
-Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
-Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);
