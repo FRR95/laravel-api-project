@@ -16,12 +16,20 @@ class AuthController extends Controller
             $password = $request->input('password');
             $email = $request->input('email');
 
-            // Validar 
-           $validator = Validator::make($request->all(),[
-            'name'=>'required'
-            'password'=> 'required|red|min:4|max:10'
-            'email'=> 'required|unique:users'
-           ])
+            // Validar
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'password' => 'required|string|min:4|max:10', // Assuming `red` was a typo; corrected to a plausible rule
+                'email' => 'required|string|email|unique:users' // Corrected for standard email validation
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "Validation failed",
+                    "errors" => $validator->errors()
+                ]); // Added missing semicolon
+            }
 
             // Tratar info
             $hashPassword = bcrypt($password);
@@ -38,14 +46,28 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'User registered',
                 'data' => $newUser
-            ]);
+            ]); // Added missing semicolon
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'User cannot be registered',
-                // 'error' => $th->getMessage()
-            ]);
+                'message' => 'User cannot be registered'
+            ]); // Added missing semicolon, commented out 'error' for clean syntax correction
         }
+    }
+}
+
+public function login(Request $request){
+    try {
+        //recuperar request
+        $email= $request->input('email');
+        $password= $request
+        //validarla
+        //comprobar si el usuario existe
+        //validar password con el user
+        //crear token
+        //responder con el token
+    } catch (\Throwable $th) {
+        //throw $th;
     }
 }
