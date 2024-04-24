@@ -7,28 +7,6 @@ use Illuminate\Http\Request;
 
 class UserRoomController extends Controller
 {
-    public function getAllUsersRooms()
-    {
-        try {
-            $usersRooms = UserRoom::all();
-
-            return response()->json(
-                [
-                    'success' => true,
-                    'message' => 'UsersRooms retrieved successfully',
-                    'data' => $usersRooms
-                ], 200
-            );
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'UsersRooms cant be retrieved',
-                'data' => 'Error: ' . $e->getMessage()
-            ], 500);
-        }
-    }
-
     public function getAllUsersFromRoomId($id)
     {
         try {

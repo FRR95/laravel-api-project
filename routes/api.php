@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
     Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById'])->middleware('isSuperAdmin');
 });
 //Games
-Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/games', [GameController::class, 'getAllGames']); 
     Route::post('/games', [GameController::class, 'createGame'])->middleware('isSuperAdmin'); 
     Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('isSuperAdmin'); 
@@ -40,7 +40,7 @@ Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
 });
 //Users_rooms
 Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
-    Route::get('/userroom', [UserRoomController::class, 'getAllUsersRooms']); 
+    Route::get('/userroom/{id}', [UserRoomController::class, 'getAllUsersFromRoomId']); 
     Route::post('/userroom', [UserRoomController::class, 'joinRoom']);
     Route::delete('/userroom/{id}', [UserRoomController::class, 'leaveRoomById']);
 });
