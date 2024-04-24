@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserRoomController;
@@ -17,8 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+//CRUD MESSAGES
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+Route::post('/messages', [MessageController::class, 'createMessage']);
+Route::get('/messages/room/{id}', [MessageController::class, 'getAllMessagesFromRoomById']);
+Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
+Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);
 });
 
 Route::get('/', function () {
@@ -43,4 +53,37 @@ Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
     Route::get('/userroom/{id}', [UserRoomController::class, 'getAllUsersFromRoomId']); 
     Route::post('/userroom', [UserRoomController::class, 'joinRoom']);
     Route::delete('/userroom/{id}', [UserRoomController::class, 'leaveRoomById']);
+});
+
+Route::get('/roles', function () {
+    return "GET ALL ROLES";
+});
+Route::post('/roles', function () {
+    return "CREATE ALL ROLES";
+});
+Route::put('/roles/{id}', function ($id) {
+    return "Update role" . $id;
+});
+Route::delete('/roles/{id}', function ($id) {
+    return "Delete role" . $id;
+});
+
+
+//Routes Auth
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
+
+
+
+// CRUD ROOMS
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/rooms', [RoomController::class, 'getAllRooms']);
+    Route::post('/rooms', [RoomController::class, 'createNewRoom']);
+    Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
+    Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
 });
