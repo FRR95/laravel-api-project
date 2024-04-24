@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
                 'name' => 'Fran',
                 'email' => 'Fran@gmail.com',
                 'password' => Hash::make('12345678'),
-                'role_id' => 3,
+                'role_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
