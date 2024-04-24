@@ -58,24 +58,35 @@ Technologies used:
 ![BD](public/images/Captura.PNG)
 
 ### Endpoints 
-#### Login:
-localhost:8000/api/register
-__POST__
-{
-    "name": "",
-    "email": "",
-    "password": "",
-}
+<details>
+- Users
 
-Register:
-localhost:8000/api/login
+    - Register:
 
-__POST__
-{
-    "email": "",
-    "password": "",
-}
+            POST http://localhost:8000/api/register
+        body:
+        ``` json
+            {
+                "name": "",
+                "nickname": ""
+                "email": "",
+                "password": ""
+            }
+        ```
 
+
+    - Log in
+
+            POST http://localhost:8000/api/login 
+        body:
+        ``` json
+            {
+                "email": "",
+                "password": ""
+            }
+        ```
+
+</details>
 
 ### Future features 
 
