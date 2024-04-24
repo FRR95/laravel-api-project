@@ -7,16 +7,24 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function getAllMessages()
+    public function getAllMessagesFromRoomById($id)
     {
         try {
-            $messages = Message::all();
+            // $messages = Message::all();
+            $roomId = $id;
+            $mymessages = Message::query()
+            ->where('room_id', $roomId)
+            ->get();
+
+            
+
+
 
             return response()->json(
                 [
                     "success" => true,
                     "message" => "Messages retrieved successfully",
-                    "data" => $messages       
+                    "data" => $mymessages       
                 ],
                 200
             );
@@ -37,7 +45,7 @@ class MessageController extends Controller
         try {
             $message = new Message;
             $message->text = $request->input('text');
-            $message->user_id = $request->input('user_id');
+            $message->user_id =  auth()->user()->id;
             $message->room_id = $request->input('room_id');
 
 
@@ -67,6 +75,7 @@ class MessageController extends Controller
     public function updateMessageById(Request $request, $id)
     {
         try {
+            
             $messageId = $id;
 
             $messageText = $request->input('text');
@@ -74,7 +83,7 @@ class MessageController extends Controller
 
             $message = Message::find($messageId);
 
-            // validar que existe la tarea
+            // validar que existe el mensaje
 
             if( $messageText ){
                 $message->text = $messageText;
