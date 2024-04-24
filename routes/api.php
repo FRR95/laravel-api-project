@@ -25,16 +25,22 @@ Route::get('/', function () {
     return "GET ALL ROLES";
 });
 //Roles
-Route::get('/roles', [RoleController::class, 'getAllRoles']); 
-Route::post('/roles', [RoleController::class, 'createRole']); 
-Route::put('/roles/{id}', [RoleController::class, 'updateRoleById']); 
-Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById']); 
+Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
+    Route::get('/roles', [RoleController::class, 'getAllRoles'])->middleware('isSuperAdmin'); 
+    Route::post('/roles', [RoleController::class, 'createRole'])->middleware('isSuperAdmin'); 
+    Route::put('/roles/{id}', [RoleController::class, 'updateRoleById'])->middleware('isSuperAdmin'); 
+    Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById'])->middleware('isSuperAdmin');
+});
 //Games
-Route::get('/games', [GameController::class, 'getAllGames']); 
-Route::post('/games', [GameController::class, 'createGame']); 
-Route::put('/games/{id}', [GameController::class, 'updateGameById']); 
-Route::delete('/games/{id}', [GameController::class, 'deleteGameById']);
+Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
+    Route::get('/games', [GameController::class, 'getAllGames']); 
+    Route::post('/games', [GameController::class, 'createGame'])->middleware('isSuperAdmin'); 
+    Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('isSuperAdmin'); 
+    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('isSuperAdmin');
+});
 //Users_rooms
-Route::get('/userroom', [UserRoomController::class, 'getAllUsersRooms']); 
-Route::post('/userroom', [UserRoomController::class, 'createUserRoom']);
-Route::delete('/userroom/{id}', [UserRoomController::class, 'deleteUserRoomById']);
+Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
+    Route::get('/userroom', [UserRoomController::class, 'getAllUsersRooms']); 
+    Route::post('/userroom', [UserRoomController::class, 'joinRoom']);
+    Route::delete('/userroom/{id}', [UserRoomController::class, 'leaveRoomById']);
+});
