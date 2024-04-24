@@ -58,12 +58,20 @@ Technologies used:
 ![BD](public/images/Captura.PNG)
 
 ### Endpoints
+Login:
+
+Register:
+
 
 ### Future features 
 
 
-### Authors
 
+### Authors
+Javi
+Jesus
+Fran
+Paula
 
 
 
