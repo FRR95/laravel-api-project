@@ -20,6 +20,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return "GET ALL ROLES";
+});
+
+//Routes Auth
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
+
+//Roles
+Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
+    Route::get('/roles', [RoleController::class, 'getAllRoles'])->middleware('isSuperAdmin'); 
+    Route::post('/roles', [RoleController::class, 'createRole'])->middleware('isSuperAdmin'); 
+    Route::put('/roles/{id}', [RoleController::class, 'updateRoleById'])->middleware('isSuperAdmin'); 
+    Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById'])->middleware('isSuperAdmin');
+});
+
+//Games
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/games', [GameController::class, 'getAllGames']); 
+    Route::post('/games', [GameController::class, 'createGame'])->middleware('isSuperAdmin'); 
+    Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('isSuperAdmin'); 
+    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('isSuperAdmin');
+});
+
+// CRUD ROOMS
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/rooms', [RoomController::class, 'getAllRooms']);
+    Route::post('/rooms', [RoomController::class, 'createNewRoom']);
+    Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
+    Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
+});
+
+//Users_rooms
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/userroom/{id}', [UserRoomController::class, 'getAllUsersFromRoomId']); 
+    Route::post('/userroom', [UserRoomController::class, 'joinRoom']);
+    Route::delete('/userroom/{id}', [UserRoomController::class, 'leaveRoomById']);
+});
 
 //CRUD MESSAGES
 Route::group([
@@ -29,61 +70,4 @@ Route::post('/messages', [MessageController::class, 'createMessage']);
 Route::get('/messages/room/{id}', [MessageController::class, 'getAllMessagesFromRoomById']);
 Route::put('/messages/{id}', [MessageController::class, 'updateMessageById']);
 Route::delete('/messages/{id}', [MessageController::class, 'deleteMessageById']);
-});
-
-Route::get('/', function () {
-    return "GET ALL ROLES";
-});
-//Roles
-Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
-    Route::get('/roles', [RoleController::class, 'getAllRoles'])->middleware('isSuperAdmin'); 
-    Route::post('/roles', [RoleController::class, 'createRole'])->middleware('isSuperAdmin'); 
-    Route::put('/roles/{id}', [RoleController::class, 'updateRoleById'])->middleware('isSuperAdmin'); 
-    Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById'])->middleware('isSuperAdmin');
-});
-//Games
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/games', [GameController::class, 'getAllGames']); 
-    Route::post('/games', [GameController::class, 'createGame'])->middleware('isSuperAdmin'); 
-    Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('isSuperAdmin'); 
-    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('isSuperAdmin');
-});
-//Users_rooms
-Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
-    Route::get('/userroom/{id}', [UserRoomController::class, 'getAllUsersFromRoomId']); 
-    Route::post('/userroom', [UserRoomController::class, 'joinRoom']);
-    Route::delete('/userroom/{id}', [UserRoomController::class, 'leaveRoomById']);
-});
-
-Route::get('/roles', function () {
-    return "GET ALL ROLES";
-});
-Route::post('/roles', function () {
-    return "CREATE ALL ROLES";
-});
-Route::put('/roles/{id}', function ($id) {
-    return "Update role" . $id;
-});
-Route::delete('/roles/{id}', function ($id) {
-    return "Delete role" . $id;
-});
-
-
-//Routes Auth
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
-
-
-
-// CRUD ROOMS
-
-Route::group([
-    'middleware' => ['auth:sanctum']
-], function () {
-    Route::get('/rooms', [RoomController::class, 'getAllRooms']);
-    Route::post('/rooms', [RoomController::class, 'createNewRoom']);
-    Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
-    Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);
 });
