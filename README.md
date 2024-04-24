@@ -67,10 +67,9 @@ Technologies used:
         body:
         ``` json
             {
-                "name": "",
-                "nickname": ""
-                "email": "",
-                "password": ""
+                "name": "Javi",
+                "email": "javi@javi.com",
+                "password": "1234"
             }
         ```
 
@@ -81,8 +80,8 @@ Technologies used:
         body:
         ``` json
             {
-                "email": "",
-                "password": ""
+                "email": "javi@javi.com",
+                "password": "1234"
             }
         ```
 
