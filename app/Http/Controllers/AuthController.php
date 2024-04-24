@@ -30,7 +30,7 @@ class AuthController extends Controller
                     "success" => false,
                     "message" => "Validation failed",
                     "errors" => $validator->errors()
-                ]); // Added missing semicolon
+                ]); 
             }
 
             // Tratar info
@@ -90,7 +90,7 @@ class AuthController extends Controller
                     [
                         "success" => false,
                         "message" => "Email or password not valid",
-                        // "error" => $th->getMessage()
+                        
                     ],
                     400
                 );
@@ -104,7 +104,7 @@ class AuthController extends Controller
                     [
                         "success" => false,
                         "message" => "Email or password not valid 2",
-                        // "error" => $th->getMessage()
+                        
                     ],
                     400
                 );
@@ -135,16 +135,16 @@ class AuthController extends Controller
         }
     }
 
-    // public function getProfile()
-    // {
-    //     $user = auth()->user();
+    public function getProfile()
+    {
+        $user = auth()->user();
 
-    //     return response()->json(
-    //         [
-    //             "success" => true,
-    //             "message" => "user profile retrieved",
-    //             "data" => $user
-    //         ]
-    //     );
-    // }
+        return response()->json(
+            [
+                "success" => true,
+                "message" => "user profile retrieved",
+                "data" => $user
+            ]
+        );
+    }
 }

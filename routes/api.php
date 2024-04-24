@@ -40,8 +40,8 @@ Route::delete('/roles/{id}', function ($id) {
 //Routes Auth
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']); //->middleware('ejemplo')
-// Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
 
 
 
