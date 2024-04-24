@@ -57,21 +57,52 @@ Technologies used:
 
 ![BD](public/images/Captura.PNG)
 
-### Endpoints
-Login:
+### Endpoints 📍
+#### Login:
+localhost:8000/api/register
+POST
+{
+    "name": "",
+    "email": "",
+    "password": "",
+}
 
 Register:
+localhost:8000/api/login
+
+POST
+{
+    "email": "",
+    "password": "",
+}
 
 
-### Future features 
+### Future features 🛠️
+- Events and tournaments
+- Achievement System
 
 
 
-### Authors
-Javi
-Jesus
-Fran
-Paula
+### Authors 🌱
+Javi:
+<a href="https://github.com/Javi-Gallego" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</p>
+<p>
+Jesus:
+
+<a href="https://github.com/JesusMatinezClavel" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</p>
+<p>
+Fran:
+
+<a href="https://github.com/FRR95" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</p>
+<p>
+Paula:
+
+<a href="https://github.com/almela09" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</p>
+<p>
 
 
 
