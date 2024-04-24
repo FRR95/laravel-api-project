@@ -17,12 +17,13 @@ class AuthController extends Controller
             $name = $request->input('name');
             $password = $request->input('password');
             $email = $request->input('email');
+            $role_id = $request->input('role_id');
 
             // Validar
             $validator = Validator::make($request->all(), [ //validator facades
                 'name' => 'required',
                 'password' => 'required|string|min:4|max:10', 
-                'email' => 'required|string|email|unique:users' 
+                'email' => 'required|string|unique:users' 
             ]);
 
             if ($validator->fails()) {
@@ -41,6 +42,7 @@ class AuthController extends Controller
             $newUser->name = $name;
             $newUser->email = $email;
             $newUser->password = $hashPassword;
+            $newUser->role_id = $role_id;
             $newUser->save();
 
             // Devolver respuesta
@@ -53,7 +55,8 @@ class AuthController extends Controller
             Log::error($th->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'User cannot be registered'
+                'message' => 'User cannot be registered',
+                'error'=>$th->getMessage()
             ]); 
         }
     }
