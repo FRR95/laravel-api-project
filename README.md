@@ -7,7 +7,7 @@
 <details>
   <summary> Content 📝</summary>
   <ol>
-    <li><a href="#about-the-project">About the project </a></li>
+    <li><a href="#about-the-project">About the project</a></li>
     <li><a href="#local-installation">Local installation</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#database-diagram">Database Design</a></li>
@@ -17,10 +17,10 @@
   </ol>
 </details>
 
-### About the project 📑
+### About the project 
 <p>The first team project proposed by GeeksHubs Academy in the PHP and Laravel section aims to develop a Looking For Group web application to improve and promote social interaction among employees of a company. Users will be able to register, log in, and also create or search for groups for each video game to play after work. In addition to all this, they will be able to manage their profile, including details such as their Steam username, and log out whenever they want.</p>
 
-### Local installation 🔧
+### Local installation 
 1. Clone the repository
   `$ composer install`
 2. Migraciones
@@ -30,7 +30,7 @@
 
 
 
-### Stack ⚙️
+### Stack 
 Technologies used:
 <div align="center">
 <a href="https://www.mysql.com/">
@@ -53,11 +53,11 @@ Technologies used:
 </a>
 </div>
 
-### Database Design 📊
+### Database Design 
 
 ![BD](public/images/Captura.PNG)
 
-### Endpoints 📍
+### Endpoints 
 #### Login:
 localhost:8000/api/register
 __POST__
@@ -77,14 +77,14 @@ __POST__
 }
 
 
-### Future features 🛠️
+### Future features 
 
  ✅Events and tournaments
  ✅Achievement System
 
 
 
-### Authors 🌱
+### Authors 
 Javi =>
 
 <a href="https://github.com/Javi-Gallego" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
