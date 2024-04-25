@@ -27,6 +27,7 @@ Route::get('/', function () {
 //Routes Auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
 
 //Roles
