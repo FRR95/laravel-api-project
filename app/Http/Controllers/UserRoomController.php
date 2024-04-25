@@ -12,17 +12,17 @@ class UserRoomController extends Controller
         try {
             $users = UserRoom::where('room_id', $id)
                 ->with('user')
-                 ->get()
-                 ->pluck('user.name');
+                ->get()
+                ->pluck('user.name');
 
             return response()->json(
                 [
                     'success' => true,
                     'message' => 'UsersRooms retrieved successfully',
                     'data' => $users
-                ], 200
+                ],
+                200
             );
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -49,7 +49,8 @@ class UserRoomController extends Controller
                     'success' => true,
                     'message' => 'Room joined successfully',
                     'data' => $userRoom
-                ], 200
+                ],
+                200
             );
         } catch (\Exception $e) {
             return response()->json([
@@ -64,27 +65,33 @@ class UserRoomController extends Controller
     {
         try {
 
-            $userRoom = UserRoom::find($id);
+            // $userRoom = UserRoom::find($id);
+            $userRoom = UserRoom::where("room_id", $id)
+                ->where("user_id", auth()->user()->id);
 
-            if (!$userRoom) {
+            // if ($userRoom->user_id != auth()->user()->id) {
+            //     return response()->json(
+            //         [
+            //             'success' => false,
+            //             'message' => 'You are not allowed to leave this room',
+            //             'data' => null
+            //         ],
+            //         403
+            //     );
+            // }
+
+            if ($userRoom!=null) {
                 return response()->json(
                     [
                         'success' => false,
                         'message' => 'Room not found',
                         'data' => null
-                    ], 404
+                    ],
+                    404
                 );
             }
-            
-            if($userRoom->user_id != auth()->user()->id){
-                return response()->json(
-                    [
-                        'success' => false,
-                        'message' => 'You are not allowed to leave this room',
-                        'data' => null
-                    ], 403
-                );
-            }
+
+
 
             $userRoom->delete();
 
@@ -93,9 +100,9 @@ class UserRoomController extends Controller
                     'success' => true,
                     'message' => 'Room exited successfully',
                     'data' => $userRoom
-                ], 200
+                ],
+                200
             );
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
