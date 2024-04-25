@@ -30,6 +30,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanctum');
 
+//USER CONTROLLER
+
+Route::put('/me', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
 //Roles
 Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
     Route::get('/roles', [RoleController::class, 'getAllRoles'])->middleware('isSuperAdmin'); 
@@ -51,6 +54,7 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::get('/rooms', [RoomController::class, 'getAllRooms']);
+    Route::get('/rooms/{game}', [RoomController::class, 'getAllRoomsByGame']);
     Route::post('/rooms', [RoomController::class, 'createNewRoom']);
     Route::put('/rooms/{id}', [RoomController::class, 'updateRoom']);
     Route::delete('/rooms/{id}', [RoomController::class, 'deleteRoom']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +41,36 @@ class RoomController extends Controller
                 ],
                 500
             );
+        }
+    }
+
+    public function getAllRoomsByGame($gameName)
+    {
+
+        try {
+            $game = Game::where("name", $gameName)
+                ->first();
+
+            $rooms = Room::where("game_id", $game->id)
+                ->get();
+
+            // dd($rooms->name);
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Game rooms retrieved successfully',
+                    'data' => $rooms
+                ],
+                200);
+        } catch (\Throwable $th) {
+            
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'ERROR',
+                    'data' => $th->getMessage()()
+                ],
+                500);
         }
     }
 
