@@ -67,6 +67,16 @@ Technologies used:
 <details>
 <summary>Details</summary>
 
+**In every endpoint you need to put this in your client**
+
+- Headers > Accept > value
+
+
+``` json
+application/json
+```
+
+
 - Auth
     - Register:
 
@@ -97,9 +107,16 @@ Technologies used:
                 "password": "1234"
             }
         ```
+    
+    - GET: Get user profile info *
+    http://localhost:8000/api/me
+
+
+    - DELETE: logout *
+    http://localhost:8000/api/logout
 
 - Users
-    - PUT: update profile
+    - PUT: update profile *
     http://localhost:8000/api/me
 
     ```sh
@@ -108,15 +125,42 @@ Technologies used:
     }
     ```
 
-    - DELETE: logout
-    http://localhost:8000/api/logout
+
+- Roles
+
+    - GET: get all roles * (superadmin)
+
+    http://localhost:8000/api/roles
+
+    - POST: create a new role * (superadmin)
+    http://localhost:8000/api/roles
+
+      ```sh
+    {
+        "name":"[the new role name here]"
+    }
+    ```
+
+    - PUT: update a role by Id * (superadmin)
+    http://localhost:8000/api/roles/{id}
+
+      ```sh
+    {
+        "name":"[the role name here]"
+    }
+    ```
+
+    - DELETE: delete a role by Id * (superadmin)
+    http://localhost:8000/api/roles/{id}
+
+   
 
 
 - Games
-    - GET: get all games
+    - GET: get all games *
     http://localhost:8000/api/games
 
-    - POST: create game
+    - POST: create game * (superadmin)
     http://localhost:8000/api/games
 
     ```sh
@@ -127,7 +171,7 @@ Technologies used:
     }
     ```
 
-    - PUT: update game by Id
+    - PUT: update game by Id * (superadmin)
     http://localhost:8000/api/games/{id}
 
     ```sh
@@ -139,19 +183,19 @@ Technologies used:
     ```
     The {id} in the endpoint targets a game_id. In the body you have to put only the fields you want to update.
 
-    - DELETE: delete game by Id
+    - DELETE: delete game by Id * (superadmin)
     http://localhost:8000/api/games/{id}
 
 - Rooms
-    - GET: get all rooms
+    - GET: get all rooms *
     http://localhost:8000/api/rooms 
 
-    - GET: get all rooms by game
+    - GET: get all rooms by game *
     http://localhost:8000/api/rooms/{gameName} 
 
     In the url we put the name of the game we are searching for. It will retrieve all the rooms that has that game as main theme.
 
-    - POST: create new room
+    - POST: create new room *
     http://localhost:8000/api/rooms 
 
 
@@ -163,7 +207,7 @@ Technologies used:
     }
     ```
 
-    - PUT: update room
+    - PUT: update room *
     http://localhost:8000/api/rooms/{id}
 
 
@@ -176,16 +220,16 @@ Technologies used:
 
     You can update either the name, the description or both. You only need to send in the body the fields you want to update.
 
-    - DELETE: delete room
+    - DELETE: delete room *
     http://localhost:8000/api/rooms/{id}
 
 - User Rooms
-    - GET: get all users from room id
+    - GET: get all users from room id *
     http://localhost:8000/api/userroom/{id}
 
     You have to put the id of the room you want to see in the url. It will retrieve all the names of the users that are in that room.
 
-    - POST: join room
+    - POST: join room *
     http://localhost:8000/api/userroom
 
     ```sh
@@ -196,13 +240,13 @@ Technologies used:
 
     It will add to the intermediate table the room you pass through the body and the user_id of the token.
 
-    - DELETE: leaver room by Id
+    - DELETE: leaver room by Id *
     http://localhost:8000/api/userroom/{id}
 
     You have to pass the id of the room you want to leave in the url.
 
 - Messages
-   - POST: create message
+   - POST: create message *
     http://localhost:8000/api/message
 
 
@@ -213,12 +257,12 @@ Technologies used:
     }
     ```
 
-  - GET: get all messages from room by id
+  - GET: get all messages from room by id *
     http://localhost:8000/api/messages/room/{id}
 
     You have to put the room id in the url and it will retrieve all the messages of that room.
 
-  - PUT: update message by Id
+  - PUT: update message by Id *
     http://localhost:8000/api/messages/{id}
 
 
@@ -228,9 +272,19 @@ Technologies used:
     }
     ```
  
-  - DELETE: delete message by Id
+  - DELETE: delete message by Id *
     http://localhost:8000/api/messages/{id}
- 
+
+
+*In these cases you need to put your token in your client
+
+- Auth>Bearer>Bearer Token
+
+    ```sh
+    {
+        [your token here]
+    }
+    ```
 
 </details>
 
