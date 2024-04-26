@@ -83,7 +83,24 @@ Technologies used:
                 "email": "javi@javi.com",
                 "password": "1234"
             }
+
+         
         ```
+
+- Users
+    - PUT: update profile
+    http://localhost:8000/api/me
+
+    ```sh
+    {
+        "name":"[your name here]"
+    }
+    ```
+
+    - DELETE: logout
+    http://localhost:8000/api/logout
+
+
 - Games
     - GET: get all games
     http://localhost:8000/api/games
