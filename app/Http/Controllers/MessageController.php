@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\UserRoom;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -15,10 +16,6 @@ class MessageController extends Controller
             $mymessages = Message::query()
             ->where('room_id', $roomId)
             ->get();
-
-            
-
-
 
             return response()->json(
                 [
@@ -48,9 +45,22 @@ class MessageController extends Controller
             $message->user_id =  auth()->user()->id;
             $message->room_id = $request->input('room_id');
 
+            $userroom = UserRoom::where("user_id", auth()->user()->id)
+                                ->where("room_id", $request->input('room_id'))
+                                ->first();
 
-            $message->save();
-
+            if($userroom !== null){
+                $message->save();
+            } else {
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You are not allowed to send messages in this room",
+                    ],
+                    500
+                );
+            }
+            
             return response()->json(
                 [
                     "success" => true,
@@ -77,10 +87,8 @@ class MessageController extends Controller
         try {
             
             $messageId = $id;
-
             $messageText = $request->input('text');
      
-
             $message = Message::find($messageId);
 
             // validar que existe el mensaje
@@ -88,8 +96,6 @@ class MessageController extends Controller
             if( $messageText ){
                 $message->text = $messageText;
             }
-
-         
 
             $message->save();
 

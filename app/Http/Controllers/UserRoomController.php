@@ -64,21 +64,8 @@ class UserRoomController extends Controller
     public function leaveRoomById($id)
     {
         try {
-
-            // $userRoom = UserRoom::find($id);
             $userRoom = UserRoom::where("room_id", $id)
                 ->where("user_id", auth()->user()->id);
-
-            // if ($userRoom->user_id != auth()->user()->id) {
-            //     return response()->json(
-            //         [
-            //             'success' => false,
-            //             'message' => 'You are not allowed to leave this room',
-            //             'data' => null
-            //         ],
-            //         403
-            //     );
-            // }
 
             if ($userRoom!=null) {
                 return response()->json(
@@ -90,8 +77,6 @@ class UserRoomController extends Controller
                     404
                 );
             }
-
-
 
             $userRoom->delete();
 

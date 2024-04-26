@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Room;
+use App\Models\UserRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -80,10 +81,7 @@ class RoomController extends Controller
 
             $user = auth()->user();
 
-            $name = $request->input('name');
-            $description = $request->input('description');
             $game_id = $request->input('game_id');
-            $user_id = $user->id;
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -123,6 +121,13 @@ class RoomController extends Controller
 
             $newRoom->save();
 
+            $userroom = new UserRoom;
+
+            $userroom->user_id = $user->id;
+            $userroom->room_id = $newRoom->id;
+
+            $userroom->save();
+
             return response()->json(
                 [
                     'success' => true,
@@ -158,18 +163,23 @@ class RoomController extends Controller
                 );
             }
 
+            if ($updatedRoom->user_id !== auth()->user()->id){
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "You're not the administrator of this room!"
+                    ]
+                );
+            }
+
             $RoomName = $request->input('name');
             $RoomDescription = $request->input('description');
-            $RoomGameId = $request->input('game_id');
 
             if ($RoomName) {
                 $updatedRoom->name = $RoomName;
             }
             if ($RoomDescription) {
                 $updatedRoom->description = $RoomDescription;
-            }
-            if ($RoomGameId) {
-                $updatedRoom->game_id = $RoomGameId;
             }
 
             $updatedRoom->save();
