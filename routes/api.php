@@ -34,19 +34,19 @@ Route::get('/me', [AuthController::class, 'getProfile'])->middleware('auth:sanct
 
 Route::put('/me', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
 //Roles
-Route::middleware(['auth:sanctum', 'isSuperAdmin'])->group(function () {
-    Route::get('/roles', [RoleController::class, 'getAllRoles'])->middleware('isSuperAdmin'); 
-    Route::post('/roles', [RoleController::class, 'createRole'])->middleware('isSuperAdmin'); 
-    Route::put('/roles/{id}', [RoleController::class, 'updateRoleById'])->middleware('isSuperAdmin'); 
-    Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById'])->middleware('isSuperAdmin');
+Route::middleware(['auth:sanctum', 'superadmin'])->group(function () {
+    Route::get('/roles', [RoleController::class, 'getAllRoles']); 
+    Route::post('/roles', [RoleController::class, 'createRole']); 
+    Route::put('/roles/{id}', [RoleController::class, 'updateRoleById']); 
+    Route::delete('/roles/{id}', [RoleController::class, 'deleteRoleById']);
 });
 
 //Games
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/games', [GameController::class, 'getAllGames']); 
-    Route::post('/games', [GameController::class, 'createGame'])->middleware('isSuperAdmin'); 
-    Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('isSuperAdmin'); 
-    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('isSuperAdmin');
+    Route::post('/games', [GameController::class, 'createGame'])->middleware('superadmin'); 
+    Route::put('/games/{id}', [GameController::class, 'updateGameById'])->middleware('superadmin'); 
+    Route::delete('/games/{id}', [GameController::class, 'deleteGameById'])->middleware('superadmin');
 });
 
 // CRUD ROOMS
