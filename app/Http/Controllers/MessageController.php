@@ -91,8 +91,31 @@ class MessageController extends Controller
      
             $message = Message::find($messageId);
 
-            // validar que existe el mensaje
+            if(!$message){
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "Message not found",
+                        
+                    ],
+                    400
+                );
 
+
+            }
+            
+            $messageUser=Message::where("id",$messageId)
+                                ->where("user_id",auth()->user()->id);
+
+            if($messageUser->count() === 0){
+                return response()->json(
+                    [
+                        "success" => false,
+                        "message" => "You cannot update this message because you are not the owner",
+                    ],
+                    400
+                );
+            }
             if( $messageText ){
                 $message->text = $messageText;
             }
